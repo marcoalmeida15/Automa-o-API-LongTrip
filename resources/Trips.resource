@@ -11,7 +11,8 @@ ${token}             Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp
 ${id_driver}         14
 ${id_motorista}      c6045e79-98c5-4f95-88ea-09d3515c96e5  
 ${id_passageiro}     35e8559d-8333-45c9-ae37-f5a8cafe63c3  
-${trip_id}           clhp5oe5i000funss2xusq5oh
+${trip_id}           clhrtv1j6000lunssaouoqzef
+${driver_id}         35e8559d-8333-45c9-ae37-f5a8cafe63c3
 
 *** Keywords ***
 Criar nova corrida
@@ -19,21 +20,29 @@ Criar nova corrida
 
     ${header}    Create Dictionary    Accept=application/json    Authorization=${token}
     ${data}    Create Dictionary    
-    ...    origin= Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil    
-    ...    lat= -29.9012611    
-    ...    lng= -50.2669706    
-    ...    latDest= -29.9175629    
-    ...    lngDest= -51.17761600000001    
-    ...    destination= Avenida Getúlio Vargas, 5501 - Centro, Canoas - RS, Brazil    
-    ...    date= 15/05/2023    
-    ...    time= 19:00    
-    ...    cost= 50    
-    ...    seats= 4    
-    ...    driverId= c6045e79-98c5-4f95-88ea-09d3515c96e5    
-    ...    carInfoId= 14    
-    ...    description= Com paradas nos principais pontos turísticos    
+    ...    origin= Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil,    
+    ...    lat= -29.9012611,   
+    ...    lng= -50.2669706,    
+    ...    latDest= -29.9175629,    
+    ...    lngDest= -51.17761600000001,   
+    ...    destination= Avenida Getúlio Vargas, 5501 - Centro, Canoas - RS, Brazil,    
+    ...    date= 15/05/2023,    
+    ...    time= 19:00,    
+    ...    cost= 50,    
+    ...    seats= 4,    
+    ...    driverId= ${driver_id} ,    
+    ...    carInfoId= 6,   
+    ...    description= Com paradas nos principais pontos turísticos,    
     ...    tripType= DRIVER
-    ${response}    POST On Session   alias=Longtrip    url=/trips    headers=${header}    json=${data}    expected_status=201
+    ${response}    POST On Session   alias=Longtrip    url=/trips    headers=${header}    json=${data}   
+    
+    log    ${response.json()}
+    IF    ${response.status_code} == 201
+        Set Test Variable    ${ID_TRIP}    ${response.json(),["id"]}
+    END    
+    
+    Set Test Variable    ${response}    ${response.json()}
+
 
 Obter uma viagem por id do motorista
     Create Session    alias=Longtrip    url=${server}
@@ -53,12 +62,12 @@ Obter viagens por id de usuário
 Obter viagens por endereço
     Create Session    alias=Longtrip    url=${server}
     ${headers}    Create Dictionary    Accept=application/json    Authorization=${token}
-    ${response}    GET On Session    alias=Longtrip    url=/trips/origin/Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil/destination/getúlio vargas 5501, canoas/seats/4     headers=${headers}    expected_status=200
+    ${response}    GET On Session    alias=Longtrip    url=/trips/origin/Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil/destination/Avenida Getúlio Vargas, 5501 - Centro, Canoas - RS, Brazil//seats/3     headers=${headers}    expected_status=200
 
 Obter viagens por endereço com filtros
     Create Session    alias=Longtrip    url=${server}
     ${headers}    Create Dictionary    Accept=application/json    Authorization=${token}
-    ${response}    GET On Session    alias=Longtrip    url=/trips/origin/Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil/destination/getúlio vargas 5501, canoas/seats/4/:Preferences     headers=${headers}    expected_status=200
+    ${response}    GET On Session    alias=Longtrip    url=/trips/origin/Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil/destination/Avenida Getúlio Vargas, 5501 - Centro, Canoas - RS, Brazil//seats/3/:Preferences     headers=${headers}    expected_status=200
 
 Obter detalhes de uma viagem
     Create Session    alias=Longtrip    url=${server}
@@ -87,15 +96,15 @@ Atribuir passageiro a viagem
 Aceitar passageiro
     Create Session    alias=Longtrip    url=${server}
     ${headers}    Create Dictionary    Accept=application/json    Authorization=${token}
-    ${data}       Create Dictionary    
-    ...    passengerId=${id_passageiro}
-    ...    tripsId=${trip_id} 
-    ${response}    POST On Session    alias=Longtrip    url=/trips/accept-passenger   headers=${headers}    json=${data}    expected_status=201
+    ${data}       Create Dictionary   
+    ...    tripId=${trip_id} 
+    ...    passengerId=${id_passageiro} 
+    ${response}    POST On Session    alias=Longtrip    url=/trips/accept-passenger    headers=${headers}    json=${data}    expected_status=201
 
 Remover passageiro
     Create Session    alias=Longtrip    url=${server}
     ${headers}    Create Dictionary    Accept=application/json    Authorization=${token}
     ${data}       Create Dictionary 
     ...    passengerId=${id_passageiro}
-    ...    tripsId=${trip_id}  
+    ...    tripId=${trip_id}  
     ${response}    POST On Session    alias=Longtrip    url=/trips/remove    headers=${headers}    json=${data}    expected_status=201
