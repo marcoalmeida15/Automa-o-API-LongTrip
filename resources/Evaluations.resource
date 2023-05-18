@@ -18,8 +18,8 @@ Criando uma nova avaliação para um usuário ou motorista
     Create Session    alias=Longtrip    url=${server} 
 
     ${header}    Create Dictionary    Accept=application/json    Authorization=${token}
-    ${data}    Create Dictionary    evaluation= 5   description= Corrida otima    tripId= ${trip_id}    passengerId= ${id_passageiro}    driverId= ${id_motorista}
-    ${response}    POST On Session    alias=Longtrip    url=/evaluations  headers=${header}    json=${data}    expected_status= 201
+    ${data}      Create Dictionary    evaluation=5   description=Corrida otima    tripId=${trip_id}    passengerId=${id_passageiro}    driverId=${id_motorista}
+    ${response}    POST On Session    alias=Longtrip    url=/evaluations  headers=${header}    json=${data}    expected_status=201
 
 Obter a média das avaliações de um motorista
     Create Session    alias=Longtrip    url=${server}

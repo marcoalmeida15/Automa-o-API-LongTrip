@@ -8,10 +8,10 @@ ${server}            http://api.longtrip.loclx.io
 ${user_id}           e51be1da-1906-4b91-8c83-039069d426ed
 ${email}             wriO@carlos.com
 ${token}             Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoibWFycXVpbi4xNUBnbWFpbC5jb20iLCJzdWIiOiJjNjA0NWU3OS05OGM1LTRmOTUtODhlYS0wOWQzNTE1Yzk2ZTUifSwiaWF0IjoxNjgyNjA2NTQ5LCJleHAiOjE2ODUxOTg1NDl9.aCTVmitc9O2LGv6UZLR6ofN60aWxvZK2nFOofvhkzLQ
-${id_driver}         14
+${id_driver}         21
 ${id_motorista}      c6045e79-98c5-4f95-88ea-09d3515c96e5  
 ${id_passageiro}     35e8559d-8333-45c9-ae37-f5a8cafe63c3  
-${trip_id}           clhrtv1j6000lunssaouoqzef
+${trip_id}           clhth2g1j000vunssglx8vyrv
 ${driver_id}         35e8559d-8333-45c9-ae37-f5a8cafe63c3
 
 *** Keywords ***
@@ -20,30 +20,22 @@ Criar nova corrida
 
     ${header}    Create Dictionary    Accept=application/json    Authorization=${token}
     ${data}    Create Dictionary    
-    ...    origin= Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil,    
-    ...    lat= -29.9012611,   
-    ...    lng= -50.2669706,    
-    ...    latDest= -29.9175629,    
-    ...    lngDest= -51.17761600000001,   
-    ...    destination= Avenida Getúlio Vargas, 5501 - Centro, Canoas - RS, Brazil,    
-    ...    date= 15/05/2023,    
-    ...    time= 19:00,    
-    ...    cost= 50,    
-    ...    seats= 4,    
-    ...    driverId= ${driver_id} ,    
-    ...    carInfoId= 6,   
-    ...    description= Com paradas nos principais pontos turísticos,    
-    ...    tripType= DRIVER
-    ${response}    POST On Session   alias=Longtrip    url=/trips    headers=${header}    json=${data}   
+    ...    origin=Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil    
+    ...    lat=-29.9012611 
+    ...    lng=-50.2669706    
+    ...    latDest=-29.9175629    
+    ...    lngDest=-51.17761600000001   
+    ...    destination=Avenida Getúlio Vargas, 5501 - Centro, Canoas - RS, Brazil  
+    ...    date=15/05/2023    
+    ...    time=19:00   
+    ...    cost=50   
+    ...    seats=4  
+    ...    driverId=${id_motorista}     
+    ...    carInfoId=6   
+    ...    description=Com paradas nos principais pontos turísticos  
+    ...    tripType=DRIVER
+    ${response}    POST On Session   alias=Longtrip    url=/trips    headers=${header}    json=${data}    expected_status= 201
     
-    log    ${response.json()}
-    IF    ${response.status_code} == 201
-        Set Test Variable    ${ID_TRIP}    ${response.json(),["id"]}
-    END    
-    
-    Set Test Variable    ${response}    ${response.json()}
-
-
 Obter uma viagem por id do motorista
     Create Session    alias=Longtrip    url=${server}
     ${headers}    Create Dictionary    Accept=application/json    Authorization=${token}
@@ -77,7 +69,23 @@ Obter detalhes de uma viagem
 Cancelar viagem
     Create Session    alias=Longtrip    url=${server}
     ${headers}    Create Dictionary    Accept=application/json    Authorization=${token}
-    ${response}    POST On Session    alias=Longtrip    url=/trips/cancel/${trip_id}    headers=${headers}    expected_status=201
+    ${data}       Create Dictionary    
+    ...    origin=Rua Quinze de Novembro, 1630 - Glória, Osório - RS, Brazil"
+    ...    lat=-29.9012611
+    ...    lng=-50.2669706
+    ...    latDest=-29.9175629
+    ...    lngDest=-51.17761600000001
+    ...    destination=Avenida Getúlio Vargas, 5501 - Centro, Canoas - RS, Brazil
+    ...    date=27/04/2023
+    ...    time=19:00
+    ...    cost=50
+    ...    seats=4
+    ...    driverId=${driver_id} 
+    ...    carInfoId=6
+    ...    description=Com paradas nos principais pontos turísticos.
+    ...    tripType=DRIVER
+
+    ${response}    POST On Session    alias=Longtrip    url=/trips/cancel/${trip_id}     headers=${headers}    expected_status=201
 
 Obter perfil de uma viagem
     Create Session    alias=Longtrip    url=${server}

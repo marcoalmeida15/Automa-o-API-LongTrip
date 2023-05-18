@@ -8,6 +8,7 @@ ${server}     http://api.longtrip.loclx.io
 ${user_id}    e51be1da-1906-4b91-8c83-039069d426ed
 ${email}      wriO@carlos.com
 ${token}      Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoibWFycXVpbi4xNUBnbWFpbC5jb20iLCJzdWIiOiJjNjA0NWU3OS05OGM1LTRmOTUtODhlYS0wOWQzNTE1Yzk2ZTUifSwiaWF0IjoxNjgyNjA2NTQ5LCJleHAiOjE2ODUxOTg1NDl9.aCTVmitc9O2LGv6UZLR6ofN60aWxvZK2nFOofvhkzLQ
+${id_passageiro}     35e8559d-8333-45c9-ae37-f5a8cafe63c3
 
 *** Keywords ***
 Criar um novo usuário
@@ -19,14 +20,7 @@ Criar um novo usuário
     ${header}    Create Dictionary    Content-Type=application/json
     ${data}    Create Dictionary    name=Marcu    lastName=Rubens    password=123456789    imageUrl=https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png    dateOfBirth=15/06/2000    gender=Masculino    cellPhone=51997459023   email=${email}
 
-    ${response}    POST On Session    alias=Longtrip    url=/users/create   headers=${header}    json=${data} 
-
-    log    ${response.json()}
-    IF    ${response.status_code} == 201
-        Set Test Variable    ${ID_USUARIO}    ${response.json(),["id"]}
-    END    
-    
-    Set Test Variable    ${response}    ${response.json()}
+    ${response}    POST On Session    alias=Longtrip    url=/users/create   headers=${header}    json=${data}    expected_status= 201
 
 Colocar "," no email antes do .com
     ${random_string}=    Generate Random String    length=4    chars=[LETTERS]    
@@ -84,10 +78,11 @@ Atualizando preferências do usuário
     Create Session    alias=Longtrip    url=${server} 
 
     ${header}    Create Dictionary    Accept=application/json    Authorization=${token}
-    ${data}    Create Dictionary    id=${user_id}    conversation=true    music=true    smoking=true    pets=true    hadVaccines=true    eatFood=true
-    ${response}    PUT On Session   alias=Longtrip    url=/users/preferences    headers=${header}    json=${data}    expected_status=200  
+    ${data}    Create Dictionary    id=${id_passageiro}    conversation=true     music=true     smoking=true     pets=true     hadVaccines=true    eatFood=true  
+        
+    ${response}    PUT On Session   alias=Longtrip    url=/users/preferences    headers=${header}    json=${data}    expected_status=200 
     
-Obtendo preferências do usuário 2
+Obter perfil do usuário
     Create Session    alias=Longtrip    url=${server}
     ${headers}    Create Dictionary    Accept=application/json    Authorization=${token}
     ${response}    GET On Session    alias=Longtrip    url=/users/profile/${user_id}   headers=${headers}    expected_status=200

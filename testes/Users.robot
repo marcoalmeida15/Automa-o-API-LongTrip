@@ -25,5 +25,5 @@ Cenário 06 - Obtendo preferências do usuário
 Cenário 07 - Atualizando preferências do usuário
     Atualizando preferências do usuário
 
-Cenário 08 - Obtendo preferências do usuário
-    Obtendo preferências do usuário 2
+Cenário 08 - Obtendo perfil do usuário
+    Obter perfil do usuário
