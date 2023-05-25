@@ -34,6 +34,7 @@ Criar nova corrida
     ...    description=Com paradas nos principais pontos turísticos  
     ...    tripType=DRIVER
     ${response}    POST On Session   alias=Longtrip    url=/trips    headers=${header}    json=${data}    expected_status= 201
+    Set Suite Variable    ${newtrip}    ${response.json().get("tripId")}
     # ${id_trip}    Set Variable    ${response.json().id_trip}
     # Set Suite Variable    ${id_trip}
 
@@ -116,4 +117,4 @@ Cancelar viagem
     ...    description=Com paradas nos principais pontos turísticos.
     ...    tripType=DRIVER
 
-    ${response}    POST On Session    alias=Longtrip    url=/trips/cancel/${trip_id}    headers=${headers}    expected_status=201
+    ${response}    POST On Session    alias=Longtrip    url=/trips/cancel/${newtrip}    headers=${headers}    expected_status=201

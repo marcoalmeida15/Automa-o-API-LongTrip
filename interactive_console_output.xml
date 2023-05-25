@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.0.2 (Python 3.11.2 on win32)" generated="20230512 17:15:20.880" rpa="false" schemaversion="3">
+<robot generator="Robot 6.0.2 (Python 3.11.2 on win32)" generated="20230525 10:29:00.427" rpa="false" schemaversion="3">
 <suite id="s1" name="Robot Interactive Console" source="c:\Users\Luan\.vscode\extensions\robocorp.robotframework-lsp-1.10.1\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
 <test id="s1-t1" name="Default Task/Test" line="5">
 <kw name="Interpreter Main Loop" library="MainLoop">
-<kw name="Obter marcas disponíveis">
-<msg timestamp="20230512 17:15:21.844" level="FAIL">No keyword with name 'Obter marcas disponíveis' found.</msg>
-<status status="FAIL" starttime="20230512 17:15:21.844" endtime="20230512 17:15:21.844"/>
+<status status="PASS" starttime="20230525 10:29:00.443" endtime="20230525 10:29:02.611"/>
 </kw>
-<status status="PASS" starttime="20230512 17:15:20.907" endtime="20230512 17:15:24.373"/>
-</kw>
-<status status="PASS" starttime="20230512 17:15:20.907" endtime="20230512 17:15:24.373"/>
+<status status="PASS" starttime="20230525 10:29:00.442" endtime="20230525 10:29:02.612"/>
 </test>
-<status status="PASS" starttime="20230512 17:15:20.882" endtime="20230512 17:15:24.374"/>
+<status status="PASS" starttime="20230525 10:29:00.427" endtime="20230525 10:29:02.612"/>
 </suite>
 <statistics>
 <total>
