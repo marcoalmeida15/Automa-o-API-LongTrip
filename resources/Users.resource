@@ -78,7 +78,7 @@ Atualizando preferências do usuário
     Create Session    alias=Longtrip    url=${server} 
 
     ${header}    Create Dictionary    Accept=application/json    Authorization=${token}
-    ${data}    Create Dictionary    id=${id_passageiro}    conversation=true     music=true     smoking=true     pets=true     hadVaccines=true    eatFood=true  
+    ${data}    Create Dictionary    id=${id_passageiro}    conversation=${true}     music=${true}     smoking=${true}     pets=${true}     hadVaccines=${true}    eatFood=${true}  
         
     ${response}    PUT On Session   alias=Longtrip    url=/users/preferences    headers=${header}    json=${data}    expected_status=200 
     

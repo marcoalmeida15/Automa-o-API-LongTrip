@@ -23,17 +23,17 @@ Cenário 06 - Obtendo viagens por endereço com filtros
 Cenário 07 - Obtendo detalhes de uma viagem
     Obter detalhes de uma viagem
 
-Cenário 08 - Cancelando uma viagem
-    Cancelar viagem
-
-Cenário 09 - Obtendo perfil de uma viagem
+Cenário 08 - Obtendo perfil de uma viagem
     Obter perfil de uma viagem
 
-Cenário 10 - Atribuindo passageiro a viagem
+Cenário 09 - Atribuindo passageiro a viagem
     Atribuir passageiro a viagem 
 
-Cenário 11 - Aceitando passageiro
+Cenário 10 - Aceitando passageiro
     Aceitar passageiro
 
-Cenário 12 - Removendo passageiro
+Cenário 11 - Removendo passageiro
     Remover passageiro
+
+Cenário 12 - Cancelando uma viagem
+    Cancelar viagem
