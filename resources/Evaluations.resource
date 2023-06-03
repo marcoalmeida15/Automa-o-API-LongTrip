@@ -7,7 +7,7 @@ Library    Collections
 ${server}     http://api.longtrip.loclx.io    
 ${user_id}    e51be1da-1906-4b91-8c83-039069d426ed
 ${email}      wriO@carlos.com
-${token}      Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoibWFycXVpbi4xNUBnbWFpbC5jb20iLCJzdWIiOiJjNjA0NWU3OS05OGM1LTRmOTUtODhlYS0wOWQzNTE1Yzk2ZTUifSwiaWF0IjoxNjgyNjA2NTQ5LCJleHAiOjE2ODUxOTg1NDl9.aCTVmitc9O2LGv6UZLR6ofN60aWxvZK2nFOofvhkzLQ
+${token}      Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoibWFycXVpbjE1QGdtYWlsLmNvbSIsInN1YiI6ImRlZDdiZGQyLTFjMTMtNDY3Yy05MWNmLWY3NGUyNmE3ZjlkZCJ9LCJpYXQiOjE2ODU3MzA4MDcsImV4cCI6MTY4ODMyMjgwN30.EeT5HIQBxmdJB_GyQOnOXWVmBxnzitSnxOy29aZtQiw
 ${id_driver}         14
 ${id_motorista}      c6045e79-98c5-4f95-88ea-09d3515c96e5  
 ${id_passageiro}     35e8559d-8333-45c9-ae37-f5a8cafe63c3  
